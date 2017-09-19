@@ -12,12 +12,12 @@
 
 #include <iostream>
 
-typedef struct Coordinate
+typedef struct Coordinate//座標
 {
     double x;
     double y;
 
-}vertex;
+}vertex;//頂點
 
 double distanceOfVertexs(const vertex vertex_1, const vertex vertex_2);
 
@@ -37,9 +37,9 @@ public:
         name = shapeName;
     }
 
-    virtual double area() const = 0;
-    virtual double perimeter() const = 0;
-    virtual std::string toString() const = 0;
+    virtual double area() const = 0;//面積
+    virtual double perimeter() const = 0;//周長
+    virtual std::string toString() const = 0;//以字串表示圖形
 
 };
 
