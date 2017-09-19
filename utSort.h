@@ -5,7 +5,7 @@
 #include "include/Sort.h"
 
 TEST (Sort, sortByIncreasingPerimeter) {
-
+	
 }
 
 TEST (Sort, sortByDecreasingPerimeter) {
