@@ -16,7 +16,11 @@ typedef struct Coordinate//座標
 {
     double x;
     double y;
-
+	
+	Coordinate(double X ,double Y)
+	{
+		x=X;y=Y;
+	}
 }vertex;//頂點
 
 double distanceOfVertexs(const vertex vertex_1, const vertex vertex_2);
