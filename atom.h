@@ -22,7 +22,6 @@ public:
   string symbol();
   bool match(Atom a);
   bool match(string s);
-  char _status;
 };
 
 #endif
