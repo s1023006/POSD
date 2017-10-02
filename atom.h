@@ -2,26 +2,22 @@
 #define ATOM_H
 
 #include <string>
-
+#include "predicate.h"
 using std::string;
 
-class Atom {
+class Atom :public Predicate{
 public:
-
-	Atom (string s,string v) {_symbol=s;_value=v;}
+  Atom (string s):_symbol(s),_value(s) {}
+  string symbol()const{
+	  return _symbol;
+  }
+  string value()const{
+	  return _value;
+  }
+private:
+  string _symbol;
+  string _value;
   
-	Atom (string s) {
-	if(s[0] >= 65 && s[0] <= 90)
-		_symbol=s;
-	else
-		_value=s;
-	}
-	
-  string _symbol,_value;
-  string value();
-  string symbol();
-  bool match(Atom a);
-  bool match(string s);
 };
 
 #endif
