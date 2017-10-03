@@ -6,39 +6,39 @@
 #include "match.cpp"
 //test Number.value()
 TEST (Number,ctor) {
-	Number twenty_five("25");
+	Number twenty_five(25);
 	ASSERT_EQ(twenty_five.value(),"25");
 }
 //test Number.symbol()
 TEST (Number, symbol) {
-	Number twenty_five("25");
+	Number twenty_five(25);
 	ASSERT_EQ(twenty_five.symbol(),"25");
 }
 //?- 25=25.
 //true.
 TEST (Number, matchSuccess) {
-	Number twenty_five1("25");
-	Number twenty_five2("25");
+	Number twenty_five1(25);
+	Number twenty_five2(25);
 	ASSERT_TRUE(match(twenty_five1,twenty_five2));
 }
 //?- 25=0.
 //false.
 TEST (Number, matchFailureDiffValue) {
-	Number twenty_five("25");
-	Number zero("0");
+	Number twenty_five(25);
+	Number zero(0);
 	ASSERT_FALSE(match(twenty_five,zero));
 }
 //?- 25=tom.
 //false.
 TEST (Number, matchFailureDiffConstant) {
-	Number twenty_five("25");
+	Number twenty_five(25);
 	Atom tom("tom");
 	ASSERT_FALSE(match(twenty_five,tom));
 }
 //?- 25=X.
 //true.
 TEST (Number, matchSuccessToVar) {
-	Number twenty_five("25");
+	Number twenty_five(25);
 	Variable X("X");
 	ASSERT_TRUE(match(twenty_five,X));
 }
@@ -46,7 +46,7 @@ TEST (Number, matchSuccessToVar) {
 //?- tom=25.
 //false.
 TEST (Atom, matchFailureDiffConstant) {
-	Number twenty_five("25");
+	Number twenty_five(25);
 	Atom tom("tom");
 	ASSERT_FALSE(match(tom,twenty_five));
 }
@@ -85,7 +85,7 @@ TEST (Atom, matchFailureToVarInstantedToDiffConstant) {
 // X = 5.
 TEST (Var, matchSuccessToNumber) {
 	Variable X("X");
-	Number five("5");
+	Number five(5);
 	ASSERT_TRUE(match(X,five));
 	ASSERT_EQ(X.value(),five.value());
 }
@@ -94,8 +94,8 @@ TEST (Var, matchSuccessToNumber) {
 // false.
 TEST (Var, matchFailureToTwoDiffNumbers) {
 	Variable X("X");
-	Number twenty_five("25");
-	Number hundred("100");
+	Number twenty_five(25);
+	Number hundred(100);
 	ASSERT_TRUE(match(X,twenty_five));
 	ASSERT_FALSE(match(X,hundred));
 }
@@ -104,7 +104,7 @@ TEST (Var, matchFailureToTwoDiffNumbers) {
 // false.
 TEST (Var, matchSuccessToAtomThenFailureToNumber) {
 	Variable X("X");
-	Number twenty_five("25");
+	Number twenty_five(25);
 	Atom tom("tom");
 	ASSERT_TRUE(match(X,tom));
 	ASSERT_FALSE(match(X,twenty_five));
@@ -113,7 +113,7 @@ TEST (Var, matchSuccessToAtomThenFailureToNumber) {
 //false.
 TEST (Var, matchSuccessToAtomThenFailureToNumber2) {
 	Variable X("X");
-	Number twenty_five("25");
+	Number twenty_five(25);
 	Atom tom("tom");
 	ASSERT_TRUE(match(tom,X));
 	ASSERT_FALSE(match(twenty_five,X));

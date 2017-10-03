@@ -3,11 +3,14 @@
 
 #include <string>
 #include "predicate.h"
-using std::string;
+using namespace std;
 
 class Number :public Predicate {
 public:
-	Number (string s):_symbol(s),_value(s) {}
+	Number (int s) {
+		_symbol=to_string(s);
+		_value=to_string(s);
+	}
 	string symbol()const{
 		return _symbol;
 	}
