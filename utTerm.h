@@ -41,9 +41,7 @@ TEST (Number, matchFailureDiffConstant) {
 TEST (Number, matchSuccessToVar) {
 	Number twenty_five(25);
 	Variable X("X");
-	twenty_five.match(X);
 	ASSERT_TRUE(twenty_five.match(X));
-	ASSERT_EQ(X.value(),twenty_five.value());
 }
 
 //?- tom=25.
