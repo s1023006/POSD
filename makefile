@@ -7,8 +7,6 @@ endif
 mainTerm.o: mainTerm.cpp utTerm.h predicate.h variable.h atom.h number.h
 	g++ -std=gnu++0x -c mainTerm.cpp
 
-#match.o: match.cpp variable.h atom.h number.h predicate.h
-	#g++ -std=gnu++0x -c match.cpp
 clean:
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
