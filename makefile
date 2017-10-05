@@ -4,7 +4,7 @@ ifeq (${OS}, Windows_NT)
 else
 	g++ -o hw2 mainTerm.o -lgtest -lpthread
 endif
-mainTerm.o: mainTerm.cpp match.o utTerm.h
+mainTerm.o: mainTerm.cpp utTerm.h match.o predicate.h
 	g++ -std=gnu++0x -c mainTerm.cpp
 
 match.o: match.cpp variable.h atom.h number.h predicate.h

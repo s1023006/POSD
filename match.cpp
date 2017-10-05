@@ -2,10 +2,19 @@
 #include "atom.h"
 #include "variable.h"
 #include "predicate.h"
+#include <iostream>
 
 using std::string;
 
-bool match(Number n1,Number n2){
+bool Number::match(Predicate &predicate){
+	bool ret = _assignable;
+	if(predicate.assignable()){
+		predicate.assign(_value);
+	}
+	return _value == predicate.value();
+}
+
+/*bool match(Number n1,Number n2){
 	return n1.value() == n2.value();
 }
 
@@ -20,9 +29,17 @@ bool match(Number number,Variable &variable){
 		  variable._assignable = false;
 		}
 	return number.value() == variable.value();
+}*/
+
+bool Atom::match(Predicate &predicate){
+	bool ret = _assignable;
+	if(predicate.assignable()){
+		predicate.assign(_value);
+	}
+	return _value == predicate.value();
 }
 
-bool match(Atom atom,Number number){
+/*bool match(Atom atom,Number number){
 	return atom.symbol() == number.value();
 }
 
@@ -37,9 +54,22 @@ bool match(Atom atom,Variable &variable){
 		  variable._assignable = false;
 		}
 	return atom.symbol() == variable.value();
+}*/
+
+bool Variable::match(Predicate &predicate){
+	bool ret = _assignable;
+		if(_assignable){
+		  _value = predicate.value();
+		  _assignable = false;
+		}
+		else if(predicate.assignable()){
+		  predicate._value = _value;
+		  predicate._assignable = false;
+		}
+		return _value == predicate.value();
 }
 
-bool match(Variable &variable,Atom atom){
+/*bool match(Variable &variable,Atom atom){
 	bool ret = variable.assignable();
 		if(variable.assignable()){
 		  variable._value = atom.symbol() ;
@@ -55,4 +85,4 @@ bool match(Variable &variable,Number number){
 		  variable._assignable = false;
 		}
     return variable.value() == number.value();
-}
+}*/
