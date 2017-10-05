@@ -2,7 +2,6 @@
 #include "atom.h"
 #include "variable.h"
 #include "predicate.h"
-#include <iostream>
 
 using std::string;
 

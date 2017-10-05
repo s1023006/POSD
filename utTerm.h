@@ -3,8 +3,7 @@
 #include "number.h"
 #include "atom.h"
 #include "variable.h"
-#include "match.cpp"
-#include <iostream>
+
 //test Number.value()
 TEST (Number,ctor) {
 	Number twenty_five(25);

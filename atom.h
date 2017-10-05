@@ -11,7 +11,13 @@ public:
 	string symbol()const{ return _symbol; }
 	string value()const{ return _value; }
 	bool assignable()const{ return _assignable; }
-	bool match(Predicate &predicate);
+	bool match(Predicate &predicate){
+		bool ret = _assignable;
+		if(predicate.assignable()){
+			predicate.assign(_value);
+		}
+		return _value == predicate.value();
+	}
 	void assign(string s){
 		_value=s;
 		_assignable=false;
