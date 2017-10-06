@@ -42,4 +42,4 @@ Fri Oct 6 2017 23:59:59
 
  * Clean all HW1 related files (Media.h, Shapes.h, Sort.h...and its implementation).
  * ~~The header's first letter should be capitalized so that we can caugth your header file on CI.~~
- * If you had any suggestions in HW1, improve it.
+ * If you had any suggestions in HW1, improve it.  123
