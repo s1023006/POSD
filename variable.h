@@ -2,36 +2,49 @@
 #define VARIABLE_H
 
 #include <string>
-#include "predicate.h"
+#include "term.h"
 using std::string;
 
-class Variable :public Predicate{
+class Variable :public Term{
 public:
-	Variable (string s):_symbol(s){}
-	string value()const{ return _value; }
+	Variable (string s):_symbol(s),_value(NULL){}
+	string value()const{ 
+		if(_value==NULL)
+		{
+			return _symbol;
+		}
+		else
+		{
+			return _value->value();
+		}
+	}
 	string symbol()const{ return _symbol; }
-	bool assignable()const{ return _assignable; }
-	bool match(Predicate &predicate){
-		bool ret = _assignable;
-		if(_assignable){
-		  _value = predicate.value();
-		  _assignable = false;
+	bool assignable()const{ return !_value; }
+	bool match(Term &term){
+		if(this==&term)
+		{
+			return true;
 		}
-		else if(predicate.assignable()){
-		  predicate._value = _value;
-		  predicate._assignable = false;
+		else if(_value==NULL)
+		{
+			_value=&term;
+			return true;
 		}
-		return _value == predicate.value();
+		else
+		{
+			return _value->match(term);
+		}
 	}
+	void assign(Term *term){
+		_value=term;
+	}
+	
+	
 	bool _assignable=true;
-	void assign(string s){
-		_value=s;
-		_assignable=false;
-	}
-	string _value;
+	Term * _value;
 	string const _symbol;
 private:
-	
+	string _name;
 	
 };
 

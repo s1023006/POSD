@@ -11,8 +11,8 @@ TEST (Number,ctor) {
 }
 //test Number.symbol()
 TEST (Number, symbol) {
-	Number twenty_five(25);
-	ASSERT_EQ(twenty_five.symbol(),"25");
+	Number twenty_five(25.2);
+	ASSERT_EQ(twenty_five.symbol(),"25.2");
 }
 //?- 25=25.
 //true.
