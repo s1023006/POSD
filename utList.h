@@ -235,6 +235,11 @@ TEST (List, emptyExecptionOfTail) {
 	}
 }
 
+TEST (List, listMatchVariable) {
+	List l;
+	Variable X("X");
+	EXPECT_TRUE(l.match(X));
+}
 
 
 

@@ -37,6 +37,10 @@ public:
 		return _symbol;
   }
   bool match(Term & term){
+		if(term.assignable())
+		{
+			return term.match(*this);
+		}
 		List *ps = dynamic_cast<List *>(&term);
 		if (ps){
 			if(_elements.size()!= ps->_elements.size())
