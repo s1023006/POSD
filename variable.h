@@ -21,12 +21,17 @@ public:
 	string symbol()const{ return _symbol; }
 	bool assignable()const{ return !_value; }
 	bool match(Term &term){
+		if(term.variable_in_term(this))
+		{
+			return false;
+		}
 		if(this==&term)
 		{
 			return true;
 		}
 		else if(_value==NULL)
 		{
+			
 			_value=&term;
 			return true;
 		}

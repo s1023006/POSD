@@ -10,6 +10,7 @@ class Term {
 	virtual bool assignable()const=0;
 	virtual bool match(Term &t2)=0;
 	virtual void assign(Term *term)=0;
+	virtual bool variable_in_term(Term *){return false;}
 	bool _assignable;
 	string _value;
 	string const _symbol;

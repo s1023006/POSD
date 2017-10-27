@@ -1,17 +1,17 @@
 hw3: maintest.o
 ifeq (${OS}, Windows_NT)
-	g++ -o hw3 maintest.o -lgtest
+	g++ -o hw4 maintest.o -lgtest
 else
-	g++ -o hw3 maintest.o -lgtest -lpthread
+	g++ -o hw4 maintest.o -lgtest -lpthread
 endif
-maintest.o: maintest.cpp utVariable.h utStruct.h term.h variable.h atom.h number.h struct.h
+maintest.o: maintest.cpp utList.h term.h variable.h atom.h number.h struct.h list.h
 	g++ -std=gnu++0x -c maintest.cpp
 
 clean:
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
 else
-	rm -f *.o hw3
+	rm -f *.o hw4
 endif
 stat:
 	wc *.h *.cpp

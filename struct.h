@@ -56,9 +56,9 @@ class Struct :public Term{
       for(int i=0;i<_arg.size();i++){
         if(_arg[i]->symbol() != ps->_arg[i]->symbol())
             return false;
-      }
+		}
       return true;
-    }
+		}
     return false;
 	}
 	void assign(Term *term){}
