@@ -17,14 +17,21 @@ class Struct :public Term{
 	
 	Term* args(int i){return _arg[i];}
 	Atom name(){return _name;}
-	Struct(Atom atom, std::vector<Term *> v){
+	Struct(Atom atom, std::vector<Term *> v): _arg(v){
 		_name._symbol=atom.symbol();
 		_name._value=atom.symbol();
-		_arg.assign(v.begin(),v.end());
+		//_arg.assign(v.begin(),v.end());
 	}
-	
+	int arity(){
+		return _arg.size();
+	}
 	string symbol()const{
 		string _symbol;
+		if(_arg.size()==0)
+		{
+			_symbol=_name.symbol()+"()";
+			return _symbol;
+		}
 		_symbol+=_name.symbol();
 		_symbol+="(";
 		for(int i=0;i<_arg.size()-1;i++)
@@ -36,6 +43,11 @@ class Struct :public Term{
 	}
 	string value()const{
 		string _value;
+		if(_arg.size()==0)
+		{
+			_value=_name.symbol()+"()";
+			return _value;
+		}
 		_value+=_name.symbol();
 		_value+="(";
 		for(int i=0;i<_arg.size()-1;i++)
