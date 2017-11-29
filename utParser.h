@@ -271,6 +271,7 @@ TEST_F(ParserTest, ThreeTermsMatching) {
 }
 
 TEST_F(ParserTest, TwoVariableMatching2) {
+	
   Scanner scanner("X=1, X=Y.");
   Parser parser(scanner);
   parser.matchings();

@@ -11,6 +11,8 @@ using std::string;
 #include "list.h"
 #include "node.h"
 #include <iostream>
+#include <map>
+using namespace std;
 
 class Parser{
 public:
@@ -19,7 +21,11 @@ public:
     int token = _scanner.nextToken();
     _currentToken = token;
     if(token == VAR){
-      return new Variable(symtable[_scanner.tokenValue()].first);
+		if(variable_table.find(symtable[_scanner.tokenValue()].first)==variable_table.end())
+		{
+			variable_table.insert(pair<string,Variable*>(symtable[_scanner.tokenValue()].first,new Variable(symtable[_scanner.tokenValue()].first)));
+		}
+      return variable_table[symtable[_scanner.tokenValue()].first];
     }else if(token == NUMBER){
       return new Number(_scanner.tokenValue());
     }else if(token == ATOM || token == ATOMSC){
@@ -141,6 +147,7 @@ private:
   int _currentToken;
   vector<Term*> _terms;
   Node *_expressionTree;
+  map<string,Variable*> variable_table;
   
 };
 #endif
