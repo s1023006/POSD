@@ -21,6 +21,10 @@ public:
 	string symbol()const{ return _symbol; }
 	bool assignable()const{ return !_value; }
 	bool match(Term &term){
+		if(!this->assignable()&&term.assignable())
+		{
+			return term.match(*(this));
+		}
 		if(term.variable_in_term(this))
 		{
 			return false;
