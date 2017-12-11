@@ -4,6 +4,8 @@
 #include "term.h"
 #include "struct.h"
 #include "list.h"
+#include <stack>
+#include <queue>
 using namespace std;
 
 //class Term;
@@ -16,6 +18,7 @@ class Iterator
 	virtual bool isDone()const=0;
 	virtual Term* currentItem()const=0;
 	virtual void next()=0;
+	virtual void first()=0;
 };
 
 template <class T>
@@ -23,6 +26,7 @@ class usualIterator:public Iterator<T>
 {
 	public:
 	friend class Term;
+	void first(){}
 	void next(){}
 	Term* currentTerm()const
 	{
@@ -45,7 +49,7 @@ class StructIterator:public Iterator<T>
 {
 	public:
 	friend class Struct;
-	
+	void first(){_index=0;}
 	Term* currentTerm()const
 	{
 		return _s;
@@ -72,25 +76,122 @@ class ListIterator:public Iterator<T>
 {
 	public:
 	friend class List;
-	
-	Term* currentTerm()const
-	{
-		return _l;
-	}
-	bool isDone()const
-	{
-		return _index>= _l->arity();
-	}
-	Term* currentItem()const
-	{
-		return _l->args(_index);
-	}
-	void next(){_index++;}
-	
-	private:
-	ListIterator(List *l):_index(0),_l(l){}
-	int _index;
-	List *_l;
+	void first() { _tailList = _l; }
+    void next()
+    {
+        try
+        {
+            _tailList = _tailList->tail();
+        }
+        catch (string e)
+        {
+        }
+    }
+    Term *currentItem() const { return _tailList->head(); }
+    bool isDone() const
+    {
+        try
+        {
+            _tailList->head();
+        }
+        catch (string e)
+        {
+            return true;
+        }
+        return false;
+    }
+    Term *currentTerm() const { return _l; };
+
+  private:
+    ListIterator(List *l) : _l(l), _tailList(l) {}
+    List *_l, *_tailList;
+};
+
+template <class T>
+class DFSIterator : public Iterator<T>
+{
+  public:
+    friend class Struct;
+    friend class List;
+
+    void first()
+    {
+        while (!_iteratorStack.empty())
+            _iteratorStack.pop();
+        _iteratorStack.push(_t->createIterator());
+    }
+    void next()
+    {
+        if (!isDone())
+        {
+            if (isLeaf())
+            {
+                _iteratorStack.top()->next();
+                while (!isDone() && _iteratorStack.top()->isDone())
+                {
+                    _iteratorStack.pop();
+                    if (!isDone())
+                        _iteratorStack.top()->next();
+                }
+            }
+            else
+                _iteratorStack.push(currentItem()->createIterator());
+        }
+    }
+    Term *currentItem() const { return _iteratorStack.top()->currentItem(); }
+    bool isDone() const { return _iteratorStack.empty(); };
+    Term *currentTerm() const { return _t; };
+
+  private:
+    DFSIterator(T t) : _t(t) { _iteratorStack.push(_t->createIterator()); }
+    bool isLeaf() const { return currentItem()->createIterator()->isDone(); }
+
+    stack<Iterator<Term *> *> _iteratorStack;
+    T _t;
+};
+
+template <class T>
+class BFSIterator : public Iterator<T>
+{
+  public:
+    friend class Struct;
+    friend class List;
+
+    void first()
+    {
+        while (!_iteratorQueue.empty())
+            _iteratorQueue.pop();
+        _iteratorQueue.push(_t->createIterator());
+    }
+    void next()
+    {
+        if (!isDone())
+        {
+            if (isLeaf())
+            {
+                _iteratorQueue.front()->next();
+                if (_iteratorQueue.front()->isDone())
+                    _iteratorQueue.pop();
+            }
+            else
+            {
+                _iteratorQueue.push(currentItem()->createIterator());
+                _iteratorQueue.front()->next();
+                if (_iteratorQueue.front()->isDone())
+                    _iteratorQueue.pop();
+            }
+        }
+    }
+    Term *currentItem() const { return _iteratorQueue.front()->currentItem(); }
+    bool isDone() const { return _iteratorQueue.empty(); };
+    Term *currentTerm() const { return _t; };
+
+  private:
+    BFSIterator(T t) : _t(t) { _iteratorQueue.push(_t->createIterator()); }
+    bool isLeaf() const { return currentItem()->createIterator()->isDone(); }
+
+    queue<Iterator<Term *> *> _iteratorQueue;
+    T _t;
 };
 
 

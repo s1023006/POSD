@@ -10,6 +10,10 @@
 
 template <class T>
 class Iterator;
+template <class T>
+class DFSIterator;
+template <class T>
+class BFSIterator;
 
 using std::string;
 class Struct :public Term{
@@ -82,7 +86,8 @@ class Struct :public Term{
 	/*{
 		return new StructIterator<Term*>(this);
 	}*/
-	
+	Iterator <Term*> *createDFSIterator();
+	Iterator <Term*> *createBFSIterator();
 	private:
 };
 

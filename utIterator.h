@@ -95,7 +95,7 @@ TEST(Iterator, listIterator)
     itr->next();
     EXPECT_TRUE(itr->isDone());
 }
-/*
+
 //s(1, t(2, 3), X, [a, b], 4, Y)
 TEST(DFSIterator, DFSStructIterator)
 {
@@ -647,5 +647,5 @@ TEST(BFSIterator, BFSBigMacListIterator)
     itr->next();
     EXPECT_TRUE(itr->isDone());
 }
-*/
+
 #endif

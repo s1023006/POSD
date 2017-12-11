@@ -8,6 +8,10 @@ using std::vector;
 
 template <class T>
 class Iterator;
+template <class T>
+class DFSIterator;
+template <class T>
+class BFSIterator;
 
 class List : public Term {
 public:
@@ -98,6 +102,8 @@ public:
 Term* args(int index){return _elements[index];}
   vector<Term *> _elements;
   Iterator<Term *> *createIterator();
+  Iterator <Term*> *createDFSIterator();
+  Iterator <Term*> *createBFSIterator();
 
 private:
   
