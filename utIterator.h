@@ -17,7 +17,7 @@ TEST(Iterator, nullIterator)
     EXPECT_EQ("1", itr->currentTerm()->symbol());
     EXPECT_TRUE(itr->isDone());
 }
-/*
+
 //s(1, t(X, 2), Y)
 TEST(Iterator, structIterator)
 {
@@ -95,7 +95,7 @@ TEST(Iterator, listIterator)
     itr->next();
     EXPECT_TRUE(itr->isDone());
 }
-
+/*
 //s(1, t(2, 3), X, [a, b], 4, Y)
 TEST(DFSIterator, DFSStructIterator)
 {

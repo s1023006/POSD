@@ -6,7 +6,10 @@
 #include "term.h"
 #include "atom.h"
 #include<iostream>
-//#include "iterator.h"
+
+
+template <class T>
+class Iterator;
 
 using std::string;
 class Struct :public Term{
@@ -75,7 +78,8 @@ class Struct :public Term{
     return false;
 	}
 	void assign(Term *term){}
-	/*Iterator <Term*> *createIterator(){
+	Iterator <Term*> *createIterator();
+	/*{
 		return new StructIterator<Term*>(this);
 	}*/
 	

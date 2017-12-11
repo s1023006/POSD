@@ -6,6 +6,9 @@
 #include <vector>
 using std::vector;
 
+template <class T>
+class Iterator;
+
 class List : public Term {
 public:
   string symbol() const{
@@ -91,8 +94,10 @@ public:
 	  }
 	  return false;
   }
-  
+  int arity(){return _elements.size();}
+Term* args(int index){return _elements[index];}
   vector<Term *> _elements;
+  Iterator<Term *> *createIterator();
 
 private:
   

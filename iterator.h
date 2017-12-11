@@ -2,9 +2,11 @@
 #define ITERATOR_H
 
 #include "term.h"
+#include "struct.h"
+#include "list.h"
 using namespace std;
 
-class Term;
+//class Term;
 
 template <class T>
 class Iterator
@@ -37,7 +39,7 @@ class usualIterator:public Iterator<T>
 	T _t;
 	
 };
-/*
+
 template <class T>
 class StructIterator:public Iterator<T>
 {
@@ -64,8 +66,32 @@ class StructIterator:public Iterator<T>
 	Struct *_s;
 	
 };
-*/
 
+template <class T>
+class ListIterator:public Iterator<T>
+{
+	public:
+	friend class List;
+	
+	Term* currentTerm()const
+	{
+		return _l;
+	}
+	bool isDone()const
+	{
+		return _index>= _l->arity();
+	}
+	Term* currentItem()const
+	{
+		return _l->args(_index);
+	}
+	void next(){_index++;}
+	
+	private:
+	ListIterator(List *l):_index(0),_l(l){}
+	int _index;
+	List *_l;
+};
 
 
 #endif
