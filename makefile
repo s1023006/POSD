@@ -41,6 +41,7 @@ ifeq (${OS}, Windows_NT)
 	g++ -o hw8 mainScanner.o atom.o list.o struct.o -lgtest
 else
 	g++ -o hw8 mainScanner.o atom.o list.o struct.o -lgtest -lpthread
+endif
 mainScanner.o: mainScanner.cpp scanner.h  atom.h struct.h variable.h  parser.h exception.h expression.h
 		g++ -std=gnu++0x -c mainScanner.cpp
 utIterator: mainIterator.o atom.o list.o struct.o iterator.h utIterator.h
