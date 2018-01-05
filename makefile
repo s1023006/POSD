@@ -1,4 +1,4 @@
-all: madRace utAtom utVariable utScanner utIterator
+all:hw8
 
 shell: struct.o list.o shell.o atom.o
 ifeq (${OS}, Windows_NT) 
