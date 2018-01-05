@@ -37,6 +37,9 @@ struct.o:struct.cpp struct.h
 #	g++ -std=c++11 -c mainExp.cpp
 
 hw8: mainScanner.o atom.o list.o struct.o scanner.h parser.h
+ifeq (${OS}, Windows_NT)
+	g++ -o hw8 mainScanner.o atom.o list.o struct.o -lgtest
+else
 	g++ -o hw8 mainScanner.o atom.o list.o struct.o -lgtest -lpthread
 mainScanner.o: mainScanner.cpp scanner.h  atom.h struct.h variable.h  parser.h exception.h expression.h
 		g++ -std=gnu++0x -c mainScanner.cpp
