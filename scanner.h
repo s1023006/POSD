@@ -24,10 +24,10 @@ public:
         string s = extractAtom();
         processToken<ATOM>(s);
         return ATOM;
-      } else if (isSpecialCh(currentChar())) {
+      } else if (isSpecialCh(currentChar()) && position() < buffer.length() - 1) {
         string s = extractAtomSC();
-        processToken<ATOM>(s);
-        return ATOM;
+        processToken<ATOMSC>(s);
+        return ATOMSC;
       } else if (isupper(currentChar()) || currentChar() == '_') {
         string s = extractVar();
         processToken<VAR>(s);
@@ -60,7 +60,7 @@ public:
 
   string extractAtom() {
     int posBegin = position();
-    for (;isalnum(buffer[pos]); ++pos);
+    for (;isalnum(buffer[pos]) || buffer[pos] == '_'; ++pos);
     return buffer.substr(posBegin, pos-posBegin);
   }
 
@@ -76,11 +76,6 @@ public:
     return buffer.substr(posBegin, pos-posBegin);
   }
 
-  string extractMid() {
-	int posBegin = position();
-	
-  }
-  
   char extractChar() {
     return buffer[pos++];
   }

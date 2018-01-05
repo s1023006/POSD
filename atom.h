@@ -2,32 +2,41 @@
 #define ATOM_H
 
 #include <string>
-#include "term.h"
-#include "number.h"
-
+#include <sstream>
 using std::string;
 
-class Atom :public Term{
+class Variable;
+class Struct;
+class Iterator;
+class Term {
 public:
-	Atom (string s):_symbol(s),_value(s) {}
-	Atom (){}
-	string symbol()const{ return _symbol; }
-	string value()const{ return _value; }
-	bool assignable()const{ return _assignable; }
-	bool match(Term &term){
-		bool ret = _assignable;
-		if(term.assignable()){
-			term.assign(this);
-		}
-		return _value == term.value();
-	}
-	void assign(Term *term){}
-	string _symbol;
-	string _value;
-private:
-	
-	bool _assignable=false;
-  
+  virtual string symbol() const {return _symbol;}
+  virtual string value() const {return symbol();}
+  virtual bool match(Term & a);
+  virtual Iterator * createIterator();
+  virtual Struct* getStruct() {
+    return nullptr;
+  }
+  virtual Variable* getVariable() {
+    return nullptr;
+  }
+protected:
+  Term (string s = ""):_symbol(s) {}
+  string _symbol;
+};
+
+class Atom : public Term{
+public:
+  Atom(string s):Term(s) {}
+};
+
+class Number : public Term{
+public:
+  Number(double db){
+      std::ostringstream strs;
+      strs << db;
+      _symbol = strs.str();
+  }
 };
 
 #endif

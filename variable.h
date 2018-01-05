@@ -2,59 +2,35 @@
 #define VARIABLE_H
 
 #include <string>
-#include "term.h"
+#include "atom.h"
 using std::string;
 
-class Variable :public Term{
+class Variable : public Term {
 public:
-	Variable (string s):_symbol(s),_value(NULL){}
-	string value()const{ 
-		if(_value==NULL)
-		{
-			return _symbol;
-		}
-		else
-		{
-			return _value->value();
-		}
-	}
-	string symbol()const{ return _symbol; }
-	bool assignable()const{ return !_value; }
-	bool match(Term &term){
-		if(!this->assignable()&&term.assignable())
-		{
-			return term.match(*(this));
-		}
-		if(term.variable_in_term(this))
-		{
-			return false;
-		}
-		if(this==&term)
-		{
-			return true;
-		}
-		else if(_value==NULL)
-		{
-			
-			_value=&term;
-			return true;
-		}
-		else
-		{
-			return _value->match(term);
-		}
-	}
-	void assign(Term *term){
-		_value=term;
-	}
-	
-	
-	bool _assignable=true;
-	Term * _value;
-	string const _symbol;
+  Variable(string s):Term(s), _instance(0) {
+
+  }
+
+  string value() const {
+    if (_instance)
+      return _instance->value();
+    else
+      return Term::value();
+  }
+
+  bool match( Term & term ) {
+    if (_instance != nullptr)
+      return _instance->match(term);
+    if (&term != this)
+      _instance = &term;
+    return true;
+  }
+
+  Variable* getVariable() {
+    return this;
+  }
 private:
-	string _name;
-	
+  Term * _instance;
 };
 
 #endif
