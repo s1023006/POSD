@@ -181,7 +181,7 @@ TEST(Shell, conjunctionMatching_sameExp) {
 
 TEST(Shell, conjunctionMatching_true) {
   Scanner s("X=X, X=X.");
-  Parser p(s);
+  Parser p(s); 
   try {
     p.buildExpression();
     string result = p.getExpressionTree()->getEvaluateString() + "." ;
